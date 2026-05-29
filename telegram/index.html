@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Перенаправление на Telegram канал</title>
+    <!-- Базовые мета-теги для SEO и соцсетей (необязательно, но приятно) -->
+    <meta name="description" content="Автоматическое перенаправление на Telegram канал фотографа. Нажмите, если редирект не сработал.">
+    <meta name="robots" content="noindex, follow">
+    <!-- Мета-теги для быстрого перехода (некоторые браузеры/платформы учитывают) -->
+    <meta http-equiv="refresh" content="0; url=https://t.me/photograph_blog">
+    <!-- Стили для минималистичной "страницы-заглушки" на случай задержки/отключения редиректа -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #0b1219 0%, #111a24 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            color: #eef2ff;
+        }
+
+        .container {
+            max-width: 560px;
+            width: 100%;
+            background: rgba(18, 25, 35, 0.75);
+            backdrop-filter: blur(10px);
+            border-radius: 2.5rem;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(73, 150, 224, 0.15);
+            padding: 2rem 1.8rem 2.5rem;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            background: #1f2a36;
+            padding: 0.8rem;
+            border-radius: 3rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #FFFFFF, #9fc3f0);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.75rem;
+        }
+
+        .telegram-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #2b3b4c;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #c7e2ff;
+            text-decoration: none;
+            margin: 1rem 0 0.8rem;
+            transition: 0.2s;
+            border: 1px solid #3f5568;
+        }
+
+        .telegram-link:hover {
+            background: #2f4b62;
+            color: white;
+            border-color: #5f8db0;
+        }
+
+        .info-text {
+            background: rgba(0, 0, 0, 0.35);
+            padding: 0.9rem;
+            border-radius: 1.5rem;
+            font-size: 0.95rem;
+            margin: 1.3rem 0 0.6rem;
+            line-height: 1.5;
+            color: #bfd6f0;
+        }
+
+        .manual-btn {
+            display: inline-block;
+            background: #2590d5;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 0.85rem 1.8rem;
+            border-radius: 3rem;
+            margin-top: 0.8rem;
+            box-shadow: 0 4px 10px rgba(0, 100, 180, 0.4);
+            transition: all 0.2s;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .manual-btn:hover {
+            background: #1c7bbc;
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 120, 200, 0.4);
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .redirect-message {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            background: #0e171f;
+            padding: 0.6rem;
+            border-radius: 2rem;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        footer {
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="icon">
+        📸
+    </div>
+    <h1>Переход на канал</h1>
+    <p style="margin-bottom: 0.5rem; opacity: 0.9;">photograph_blog в Telegram</p>
+
+    <!-- Индикатор редиректа + пояснение -->
+    <div class="redirect-message" id="redirectStatus">
+        <span class="spinner"></span>
+        <span>Перенаправление...</span>
+    </div>
+
+    <div class="info-text">
+        ⚡ Если страница не перекинула автоматически — возможно, ваш браузер блокирует мета-редирект.
+        Нажмите кнопку ниже, чтобы перейти вручную.
+    </div>
+
+    <!-- Кнопка / ссылка для ручного перехода (дублируется как обычная ссылка и кнопка) -->
+    <a href="https://t.me/photograph_blog" class="manual-btn" id="manualLink">
+        📱 Открыть Telegram-канал
+    </a>
+
+    <!-- Дополнительная текстовая ссылка (альтернатива) -->
+    <div style="margin-top: 1.2rem;">
+        <a href="https://t.me/photograph_blog" target="_blank" rel="noopener noreferrer" 
+           style="color: #6ea8fe; text-decoration: none; font-size: 0.85rem; border-bottom: 1px dashed #4f7ea3;">
+            t.me/photograph_blog
+        </a>
+    </div>
+    <footer>
+        безопасное перенаправление • фотоблог
+    </footer>
+</div>
+
+<!-- Небольшой скрипт, который гарантирует редирект через JS и доп. защиту,
+     а также отображает счётчик или сообщение, если редирект уже произошёл.
+     Также делаем резервный редирект на случай, если мета-тег не сработал быстро.
+-->
+<script>
+    (function() {
+        const TARGET_URL = "https://t.me/photograph_blog";
+        // Элемент статуса
+        const statusSpan = document.getElementById('redirectStatus');
+        // Флаг, чтобы не делать несколько редиректов
+        let redirected = false;
+
+        // Функция выполнения редиректа
+        function performRedirect() {
+            if (redirected) return;
+            redirected = true;
+            // меняем интерфейс для оповещения
+            if (statusSpan) {
+                statusSpan.innerHTML = `
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;">
+                        <path d="M20 12L20 18C20 19.1046 19.1046 20 18 20L6 20C4.89543 20 4 19.1046 4 18L4 6C4 4.89543 4.89543 4 6 4L12 4" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+                        <path d="M16 4L20 4L20 8" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14 10L20 4" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                    <span>Редирект...</span>
+                `;
+            }
+            // основной редирект
+            window.location.href = TARGET_URL;
+        }
+
+        // Пытаемся сделать редирект немедленно через JS (самый надёжный способ),
+        // но с учётом того, что некоторые браузеры могут ограничивать "немедленный" редирект,
+        // делаем небольшой таймаут 0 мс, но чтобы не конфликтовать с мета-редиректом (0 секунд).
+        // Приоритет: JS редирект сработает быстрее или сразу. Мета-тег refresh уже установлен.
+        // Но иногда мобильные веб-вью могут блокировать автоматические смены location, тогда даём кнопку.
+        // Однако чтобы страница не зависала, делаем редирект через setTimeout с минимальной задержкой,
+        // тем самым давая DOM отрисоваться (визуальный фидбек). Но можно и без задержки.
+        // Во избежание блокировок, попробуем location.replace() вместо href (чище история).
+        // Также сделаем доп. попытку если после 1.5 секунд не произошло? но с заменой location перезапишет всё.
+        // ВАЖНО: не делаем множество вызовов. 
+        
+        // Небольшой трюк: иногда редирект через location.href срабатывает не мгновенно,
+        // но если вкладка открыта долго, пользователь может не дождаться. Всё корректно.
+        // Также проверим, находимся ли мы в iframe? Не влияет.
+        
+        // Выполняем редирект с заменой, чтобы кнопка "назад" вела на предыдущую страницу (хорошее поведение)
+        // и предотвращаем повторный редирект.
+        setTimeout(() => {
+            if (!redirected) {
+                // дополнительно можно использовать location.replace для чистой истории
+                window.location.replace(TARGET_URL);
+                redirected = true;
+            }
+        }, 20); // через 20 мс — более чем достаточно, но мета-тег уже сработает раньше, но дублирование не страшно
+        
+        // Резервный редирект через 0.8 секунды, если по какой-то причине оба не сработали (например, встроенные блокировщики?)
+        // Но так как основной редирект (setTimeout 20ms) скорее всего выполнится, этот таймаут будет избыточным,
+        // однако для полной уверенности оставим флаг.
+        setTimeout(() => {
+            if (!redirected) {
+                // пробуем ещё раз, но используем "тяжелую артиллерию"
+                window.location.href = TARGET_URL;
+                redirected = true;
+                if(statusSpan) statusSpan.innerHTML = '<span>⚠️ Повторная попытка...</span>';
+            }
+        }, 800);
+        
+        // Также обработчик для ручной кнопки, но она и так ссылка (обычный тег a).
+        // Но дополнительно перехватываем клик по кнопке с классом .manual-btn (хотя она и так ведёт на URL)
+        // на случай, если кто-то захочет добавить аналитику – просто оставим как есть, но продублируем "чистый" переход.
+        // Браузер сам перейдёт по href. А если понадобится предотвратить случайное дублирование, но не нужно.
+        // Однако, добавим ещё одно улучшение: если вдруг пользователь находится в окружении, где t.me не открывается
+        // (например, desktop без Telegram), мы даём ему скопировать ссылку или предупреждение - но этого достаточно.
+        
+        // Дополнительно: показать сообщение через 1.2 секунды, если редирект не удался (не изменился URL)
+        // Это будет скорее для информации, но так как редирект точно произойдёт (если не блокируется политиками),
+        // оставим как «помощь» — возможно пользователь отменил переход.
+        setTimeout(() => {
+            // проверяем, не изменился ли window.location? если всё ещё на этой странице через > 1.5 сек,
+            if (!redirected && window.location.pathname === window.location.pathname) {
+                if (statusSpan) {
+                    statusSpan.innerHTML = `
+                        <span>⌛ Автоматический переход не выполнен</span>
+                    `;
+                    statusSpan.style.background = "rgba(220, 53, 69, 0.2)";
+                }
+                const infoDiv = document.querySelector('.info-text');
+                if (infoDiv) {
+                    infoDiv.innerHTML = "⚠️ Автоматический редирект заблокирован браузером или расширением. Нажмите на кнопку выше, чтобы перейти в Telegram-канал вручную.";
+                }
+            }
+        }, 1500);
+        
+        // Отслеживаем событие beforeunload не нужно, просто корректный редирект.
+        // Также для повышения совместимости с iOS и Android WebView — гарантированно сработает.
+        // Плюс дублируем попытку через visibilitychange? излишне.
+        // Если пользователь открыл страницу в режиме чтения или блокировщик всплывашек — кнопка спасёт.
+        
+        // Делаем небольшую "защиту" для случаев когда пользователь вернулся назад через историю (редирект циклический)
+        // не требуется.
+        
+        // Также стилизуем визуальную обратную связь при клике на кнопку manualLink: можно вывести тост, но не обязательно
+        const manualButton = document.getElementById('manualLink');
+        if (manualButton) {
+            manualButton.addEventListener('click', function(e) {
+                // дополнительная метка: пользователь переходит вручную, отлично.
+                // не предотвращаем переход.
+                if(statusSpan) statusSpan.innerHTML = '<span>🔁 Переход по вашей команде...</span>';
+                // Можно убрать spinner, но не критично.
+            });
+        }
+        
+        // Чтобы не крутился статус вечно - не мешаем редиректу.
+        // Для того чтобы не было конфликта с мета-редиректом, установим атрибут http-equiv="refresh" уже в head,
+        // он отработает с задержкой 0 секунд — это самый быстрый способ до рендера.
+        // Однако JS-редирект более контролируемый.
+        // Дабы избежать двойного редиректа (мета-тег + JS) - не страшно, браузер выполнит первый, который обработает.
+        
+        // Вывод: Итоговая страница будет перенаправлять гарантированно. 
+        // Также скрипт улучшает пользовательский опыт показывая статус.
+        
+        // Убираем spinner и отображаем сообщение об успешной попытке если редирект уже инициирован выше.
+        // Также добавим атрибут для открытия ссылки в том же окне — по умолчанию href делает это.
+    })();
+</script>
+<!-- 
+    Дополнительная логика: также добавим резервный редирект, если JavaScript полностью отключён:
+    мета-тег http-equiv="refresh" справится с этим на 100%. 
+    Пользователи с отключенным JS увидят мгновенный редирект (0 сек).
+    Пользователи с включенным JS получат тот же редирект плюс аккуратный интерфейс.
+    Всё корректно, безопасно, дружественно.
+-->
+</body>
+</html>

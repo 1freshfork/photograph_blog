@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>sergaytrain · блог фотографа</title>
+    <!-- Ваша собственная иконка -->
+    <link rel="icon" href="files/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="files/favicon.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FCF9F4 0%, #F5EDE3 100%);
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            color: #2C241A;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* кастомный скролл — эстетика */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #E9DFD3;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C2A88D;
+            border-radius: 10px;
+            transition: background 0.2s ease;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A58362;
+        }
+
+        /* плавное появление всего контента */
+        @keyframes fadeSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gentleGlow {
+            0% {
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.02);
+            }
+            50% {
+                box-shadow: 0 20px 32px rgba(0, 0, 0, 0.06), 0 6px 12px rgba(0, 0, 0, 0.04);
+            }
+            100% {
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.02);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            padding: 2rem 2.5rem 1.5rem 2.5rem;
+            background: rgba(255, 251, 245, 0.85);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(194, 168, 141, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: fadeSlideUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+        }
+
+        .logo a {
+            text-decoration: none;
+            transition: all 0.25s ease;
+            display: inline-block;
+        }
+
+        .logo h1 {
+            font-size: 1.85rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(125deg, #4A3728, #B47C4A);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            transition: transform 0.2s ease;
+        }
+
+        .logo a:hover h1 {
+            transform: scale(1.01);
+            background: linear-gradient(125deg, #5F4532, #CB8B55);
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        .links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .links a {
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+            color: #4F3E2E;
+            padding: 0.4rem 0;
+            position: relative;
+            transition: color 0.25s ease;
+        }
+
+        .links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: #B47C4A;
+            border-radius: 4px;
+            transition: width 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .links a:hover {
+            color: #A5652C;
+        }
+
+        .links a:hover::after {
+            width: 100%;
+        }
+
+        /* основной контент */
+        .staties {
+            max-width: 880px;
+            margin: 2rem auto 4rem auto;
+            padding: 0 2rem;
+            flex: 1;
+        }
+
+        .staties > h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            background: linear-gradient(120deg, #2C241A, #7C5E42);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            animation: fadeSlideUp 0.6s 0.1s backwards;
+        }
+
+        .staties > h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #D6B17E;
+            border-radius: 4px;
+        }
+
+        /* карточка статьи — шедевральная анимация */
+        .statie-card {
+            background: #FFFFFFE6;
+            backdrop-filter: blur(2px);
+            border-radius: 32px;
+            padding: 1.8rem 2rem;
+            margin: 2rem 0 2rem 0;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+            border: 1px solid rgba(210, 180, 140, 0.4);
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(210, 180, 140, 0.1);
+            animation: fadeSlideUp 0.6s 0.2s backwards, gentleGlow 6s infinite ease-in-out;
+        }
+
+        .statie-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: rgba(180, 124, 74, 0.6);
+            box-shadow: 0 28px 36px -14px rgba(79, 62, 46, 0.2), 0 0 0 1px #D6B17E80;
+            background: #FFFFFF;
+        }
+
+        .statie-card a {
+            text-decoration: none;
+            display: block;
+        }
+
+        .statie-card h2 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            color: #3A2C1F;
+            margin-bottom: 0.85rem;
+            transition: color 0.2s ease;
+            letter-spacing: -0.3px;
+        }
+
+        .statie-card p {
+            font-size: 1.1rem;
+            color: #5C4B38;
+            line-height: 1.5;
+            border-left: 3px solid #E7CDA8;
+            padding-left: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .statie-card:hover h2 {
+            color: #B2682C;
+        }
+
+        .statie-card:hover p {
+            border-left-color: #B47C4A;
+        }
+
+        /* дополнительный элегантный текст "на этом пока все" */
+        .staties > p {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #9D8468;
+            letter-spacing: 0.3px;
+            background: rgba(230, 215, 190, 0.4);
+            display: inline-block;
+            width: auto;
+            padding: 0.6rem 1.8rem;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+            transition: all 0.25s;
+            animation: fadeSlideUp 0.6s 0.3s backwards;
+        }
+
+        .staties > p:hover {
+            background: rgba(210, 180, 140, 0.3);
+            color: #6F543A;
+            transform: scale(1.02);
+        }
+
+        /* footer — минималистичная элегантность */
+        .footer {
+            margin-top: 3rem;
+            padding: 2rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(163, 131, 94, 0.2);
+            background: rgba(249, 242, 234, 0.7);
+            backdrop-filter: blur(8px);
+            font-size: 0.9rem;
+            color: #846B4F;
+            letter-spacing: 0.2px;
+            transition: background 0.2s;
+            animation: fadeSlideUp 0.6s 0.35s backwards;
+        }
+
+        .footer p {
+            opacity: 0.8;
+        }
+
+        /* Декоративная анимация при загрузке - мягкое появление блока */
+        @keyframes softAppear {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* адаптивность */
+        @media (max-width: 680px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 1.25rem 1.5rem;
+            }
+            .links {
+                gap: 1.5rem;
+            }
+            .staties > h1 {
+                font-size: 1.9rem;
+            }
+            .statie-card h2 {
+                font-size: 1.5rem;
+            }
+            .statie-card {
+                padding: 1.4rem 1.5rem;
+            }
+        }
+
+        /* добавляем эффект мягкого свечения карточке при наведении и плавный фон */
+        .statie-card {
+            transition: transform 0.35s ease, box-shadow 0.4s ease, border-color 0.2s;
+        }
+
+        /* мигающий курсор/акцент (чисто декоративно) */
+        .logo h1, .links a, .statie-card a {
+            user-select: none;
+        }
+
+        /* анимированный градиент для страницы (едва заметная динамика) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 40%, rgba(218, 185, 135, 0.05) 0%, rgba(245, 235, 220, 0) 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* небольшая анимация для иконки favicon (она не влияет на саму иконку, просто атмосфера) */
+        /* добавляем тёплый эффект для блока "Мои последние статьи" */
+        .staties {
+            position: relative;
+        }
+
+        /* интерактивный hover для главного заголовка */
+        .staties > h1 {
+            transition: letter-spacing 0.2s ease;
+            cursor: default;
+        }
+        .staties > h1:hover {
+            letter-spacing: 0.3px;
+        }
+
+        /* и стиль для параграфа внутри карточки доп. */
+        .statie-card p {
+            transition: padding-left 0.2s ease, color 0.2s;
+        }
+        .statie-card:hover p {
+            padding-left: 1.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <a href="#"><h1>sergaytrain.blog</h1></a>
+        </div>
+        <div class="links">
+            <a href="about/">О мне</a>
+            <a href="telegram/">Telegram канал</a>
+        </div>
+    </div>
+    <div class="staties">
+        <h1>Мои последние статьи</h1>
+        <div class="statie-card">
+            <a href="blog/ekaterinburg_2026_29_05_transport/">
+                <h2>Моя поездка в Екатеринбург</h2>
+                <p>Поездка в Екатеринбург на 10 Часов, 28 Мая, 2026.</p>
+            </a>
+        </div>
+        <p>На этом пока все.</p>
+    </div>
+    <div class="footer">
+        <p>2026, Фотограф sergaytrain</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Блог фотографа - sergaytrain</title>
+    <link rel="icon" href="files/favicon.png" type="image/png">
+    <style>
+        /* ========== ГЛОБАЛЬНЫЕ СТИЛИ ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #FDF8F0 0%, #F9EFE3 100%);
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            color: #2C241A;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* кастомный скролл */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #E9DFD3;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C2A88D;
+            border-radius: 10px;
+            transition: background 0.2s;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A58362;
+        }
+
+        /* анимации */
+        @keyframes fadeSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* навбар */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            padding: 2rem 2.5rem 1.5rem 2.5rem;
+            background: rgba(255, 251, 245, 0.85);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(194, 168, 141, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: fadeSlideUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+        }
+
+        .logo a {
+            text-decoration: none;
+            transition: all 0.25s ease;
+            display: inline-block;
+        }
+
+        .logo h1 {
+            font-size: 1.85rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(125deg, #4A3728, #B47C4A);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            transition: transform 0.2s ease;
+        }
+
+        .logo a:hover h1 {
+            transform: scale(1.01);
+            background: linear-gradient(125deg, #5F4532, #CB8B55);
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        .links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .links a {
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+            color: #4F3E2E;
+            padding: 0.4rem 0;
+            position: relative;
+            transition: color 0.25s ease;
+        }
+
+        .links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: #B47C4A;
+            border-radius: 4px;
+            transition: width 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .links a:hover {
+            color: #A5652C;
+        }
+
+        .links a:hover::after {
+            width: 100%;
+        }
+
+        /* стили для поста */
+        .post {
+            max-width: 980px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .publication-info {
+            display: flex;
+            gap: 2rem;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 1.8rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px dashed #E2D4C4;
+            animation: fadeSlideUp 0.6s 0.05s backwards;
+        }
+
+        .publication-info p {
+            font-size: 0.9rem;
+            color: #9B8468;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .publication-info p:first-child::before {
+            content: "📅 ";
+        }
+
+        .publication-info p:last-child::before {
+            content: "📸 ";
+        }
+
+        .post-pub p {
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            color: #3A2E24;
+            line-height: 1.65;
+        }
+
+        .post-pub p strong {
+            color: #B47C4A;
+            font-weight: 600;
+        }
+
+        .post-pub a {
+            color: #B2682C;
+            text-decoration: none;
+            border-bottom: 1px solid #E7CDA8;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .post-pub a:hover {
+            color: #8B4E1F;
+            border-bottom-color: #B47C4A;
+        }
+
+        .post-pub img {
+            max-width: 100%;
+            border-radius: 28px;
+            margin: 1.8rem 0;
+            box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: block;
+            border: 1px solid rgba(210, 180, 140, 0.4);
+        }
+
+        .post-pub img:hover {
+            transform: scale(1.01);
+            box-shadow: 0 24px 40px -16px rgba(0, 0, 0, 0.25);
+            border-color: #D6B17E;
+        }
+
+        /* стили слайдера */
+        .slider {
+            position: relative;
+            margin: 2rem 0;
+            border-radius: 32px;
+            overflow: hidden;
+            background: #EBE0D2;
+            box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .slider-track img {
+            width: 100%;
+            flex-shrink: 0;
+            object-fit: cover;
+            max-height: 550px;
+            border-radius: 0;
+            margin: 0;
+            box-shadow: none;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(80, 60, 40, 0.7);
+            backdrop-filter: blur(6px);
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.6rem 1rem;
+            border-radius: 60px;
+            color: #FCEEDB;
+            transition: all 0.2s ease;
+            z-index: 10;
+            font-weight: 400;
+            line-height: 1;
+        }
+
+        .slider-btn:hover {
+            background: #B47C4A;
+            color: white;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .slider-prev {
+            left: 20px;
+        }
+
+        .slider-next {
+            right: 20px;
+        }
+
+        .slider-dots {
+            text-align: center;
+            padding: 1rem;
+            background: #F9F2E8;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: #D1BD9E;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dot.active {
+            background: #B47C4A;
+            width: 26px;
+            border-radius: 12px;
+        }
+
+        /* футер */
+        .footer {
+            margin-top: 3rem;
+            padding: 2rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(163, 131, 94, 0.2);
+            background: rgba(249, 242, 234, 0.7);
+            backdrop-filter: blur(8px);
+            font-size: 0.9rem;
+            color: #846B4F;
+            letter-spacing: 0.2px;
+        }
+
+        @media (max-width: 720px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 1.2rem 1.5rem;
+            }
+            .links {
+                gap: 1.5rem;
+            }
+            .post {
+                padding: 0 1.2rem;
+            }
+            .publication-info {
+                gap: 1rem;
+            }
+            .slider-btn {
+                font-size: 1.4rem;
+                padding: 0.3rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <a href="../../"><h1>sergaytrain.blog</h1></a>
+        </div>
+        <div class="links">
+            <a href="../../about/">О мне</a>
+            <a href="../../telegram/">Telegram канал</a>
+        </div>
+    </div>
+    
+    <div class="post">
+        <div class="publication-info">
+            <p>30 Мая, 2026, 12:17</p>
+            <p>sergaytrain</p>
+        </div>
+        <div class="post-pub">
+            <p>Приветствую всех читателей! Сегодня — <strong>День Победы</strong>, а для фотографов общественного транспорта это ещё и особенный день. Почему? Да потому что все автобусы внезапно поедут по <strong>изменённым маршрутам</strong>! Объезжая площадь около <strong>Администрации</strong>, техника сворачивает туда, куда обычно не заглядывает. Дело было в <strong>субботу</strong>, машин на улицах оказалось на удивление мало. Я решил не ждать общественный транспорт и пошёл пешком от своего дома (<strong>микрорайон Торговый</strong>), чтобы пофоткать автобусы вместе с известным фотографом <a href="https://fotobus.msk.ru/author/41215/"><strong>makstv</strong></a>. Встретились мы на <strong>улице Рябова</strong> — и тут же упёрлись в пробку. Решили не стоять на месте, прошли дальше, за светофор, и в итоге заняли позицию на остановке <strong>"Космос"</strong> в сторону <strong>Синарского района</strong>. Прождали там прилично времени, успели щёлкнуть несколько автобусов. Но обо всём по порядку. Первым в объектив попал <strong>НефАЗ-5299-30-57</strong> — правда, кадр вышел с досадным пересветом, солнце стояло не с той стороны. Этот гигант ехал на <strong>14 маршруте</strong>. И тут самое интересное: <strong>14-й автобус</strong> здесь официально не ходит вообще никогда. Но именно в этот день правило изменилось ровно на сутки — и мы стали свидетелями этой маленькой транспортной аномалии.</p>
+            <img src="files/1.jpg" alt="">
+
+            <p>Дальше всё пошло по накатанной, но скучно не было ни секунды. Мы с <a href="https://fotobus.msk.ru/author/41215/"><strong>makstv</strong></a> залипли в свои телефоны, как два диспетчера во время апокалипсиса. Потому что отображение автобусов на <strong>Яндекс Картах</strong> — умерло. Наглухо. Не грузилось, не показывало, не помогало. Я тогда выдал:</p>
+
+<p>— <strong>Макс</strong>, ты глянь, <strong>Яндекс</strong> совсем лёг. Ни одной пипки на карте, хоть волком вой.</p>
+
+<p><strong>makstv</strong> только рукой махнул, даже не поднимая головы от экрана:</p>
+
+<p>— А чего ты хотел? <strong>Яндекс — рукажопы</strong>, я тебе тысячу раз говорил. Ну всё, переходим на <strong><a href="#">"Свердловский транспорт"</a></strong>.</p>
+
+<p>И знаете что? Он был прав. Вещь, конечно, полезная, но с одним огромным "НО". Автобусы там обновляются с черепашьей скоростью — местоположение каждого меняется раз в <strong>2-3 минуты</strong>. Представьте себе: ты стоишь на остановке <strong>"Космос"</strong>, ветер гуляет, солнце уже начинает садиться, а на карте автобус всё ещё три остановки назад.</p>
+
+<p>— <strong>Макс</strong>, ну где этот <strong>ЛиАЗ</strong>? — спрашиваю я, уже начиная нервно переминаться с ноги на ногу. — Три минуты прошло, а на карте он всё ещё у <strong>Синарского района</strong>.</p>
+
+<p><strong>makstv</strong> спокойно так, с ленцой, отвечает, не отрываясь от телефона:</p>
+
+<p>— Спокуха, брат. Наш <strong>Свердловский транспорт</strong> работает в режиме "было — стало". Он сейчас уже, может, перед носом проехал, а карта только думает. Жди. Транспорт любит терпеливых.</p>
+
+<p>И тут — о чудо! Прямо из-за поворота, тяжело шумя дизелем и слегка проседая на неровностях <strong>улицы Рябова</strong>, выруливает тот самый. Всеми "любимый", вечно обсуждаемый, по-своему легендарный — <strong>ЛиАЗ-5292.65</strong>. Я аж локтем <strong>Макса</strong> толкаю:</p>
+
+<p>— Смотри, смотри! Он! Твой любимец! <strong>ЛиАЗ</strong> из самой <strong>Москвы</strong>, твою ж дивизию!</p>
+
+<p><strong>makstv</strong> усмехается, поднимая камеру:</p>
+
+<p>— А я тебе говорил. Кто ждёт — тот дождётся. Давай, щёлкай, пока <strong>Яндекс</strong> думает, что мы всё ещё на <strong>улице Рябова</strong> стоим.</p>
+
+<p>Этот экземпляр оказался не простым местным трудягой, а самым настоящим столичным гостем. <strong>2016 год выпуска</strong>, вылинявшая, но всё ещё гордая ливрея <strong>Московского Транспорта</strong>. Такие красавцы — настоящие ветераны дорог, отмотавшие сотни тысяч километров по бетонке и асфальту, а теперь бороздят наши улицы. Их передали нам в начале <strong>2026 года</strong>. И знаете, сколько их в городе? Всего <strong>пять штук</strong>. Пять! На весь огромный мегаполис.</p>
+
+<p>— <strong>Макс</strong>, а помнишь, у <strong>"Экспресс-Сити"</strong> были такие же, но новенькие, <strong>2024 года</strong>? — спрашиваю я, не опуская камеры. — Прям из салона, не б/у.</p>
+
+<p><strong>makstv</strong> кивает, делая очередной кадр:</p>
+
+<p>— Ещё бы не помнить. Те красавцы были огонь. А этого московского деда, знаешь, тоже уважаю. Не сломался, доехал. С характером техника. Кстати, он на каком маршруте?</p>
+
+<p>Я тыкаю в телефон:</p>
+
+<p>— По <strong><a href="#">"Свердловскому транспорту"</a></strong> смотрю... <strong>11 маршрут</strong>! Представляешь, <strong>11-й</strong>, а мы тут про <strong>14-й</strong> вспоминали.</p>
+
+<p><strong>makstv</strong> довольно ухмыляется, провожая <strong>ЛиАЗ</strong> взглядом:</p>
+
+<p>— Значит, повезло нам сегодня. <strong>14-й</strong> <strong>НефАЗ</strong>, теперь <strong>11-й</strong> <strong>ЛиАЗ</strong> из Москвы. Я ж тебе говорил: <strong>День Победы</strong> творит чудеса даже с расписаниями. Давай дальше смотреть, кого ещё нам карта подкинет.</p>
+
+<p>И мы стояли, улыбались и хлопали глазами, потому что ради таких кадров, таких диалогов и такой атмосферы и стоит загорать на остановках, материть <strong>Яндекс</strong> и каждые две минуты обновлять <strong>"Свердловский транспорт"</strong>.</p>
+<img src="files/2.jpg" alt="">
+
+<p>Позже, ещё немного простояв на остановке <strong>"Космос"</strong> и порядком позагорав на весеннем солнце, мы встретили кое-что необычное. Мимо нас, лениво урча сиреной на холостых, протащилась пожарная машина. И тут случилось невероятное — мы оба вскинули камеры одновременно. Я — свой верный аппарат, <a href="https://fotobus.msk.ru/author/41215/"><strong>makstv</strong></a> — свой. Два щелчка, почти слившихся в один. Никто не зевнул, никто не выпал в осадок. Рефлексы сработали как у хорошо обученной команды. И только когда красный борт уже скрылся за поворотом в сторону <strong>Синарского района</strong>, я заметил номер. <strong>6075СВО</strong>. Да-да, именно так. <strong>СВО</strong>. Мы переглянулись с <strong>makstv</strong>, и он молча показал мне дисплей своей камеры — тот самый кадр. Я глянул на свой — тоже готово. Теперь у нас есть <strong>два ракурса</strong> этой загадочной техники. Теперь сижу и думаю: это такая тонкая посылочка от кого-то сверху, неудачное совпадение цифр и букв, или просто нам сегодня дико повезло стать свидетелями? <strong>6075СВО</strong>. Как думаете, пасхалка или чистая случайность? Я склоняюсь к первому, потому что <strong>День Победы</strong>, чёрт возьми, и такие номера просто так не появляются. Оставляю этот вопрос открытым для комментариев.</p>
+<img src="files/3.jpg" alt="">
+
+<p>Позже мы начали потихоньку двигаться в сторону <strong>улицы Парковой</strong>, как раз туда, где автобусы делали объезд площади <strong>Администрации</strong>. Только отошли от остановки <strong>"Космос"</strong> — буквально сделали первые шагов пятьдесят, ещё даже обсудить следующий план не успели, — и тут я увидел его. Ещё один <strong>НефАЗ-5299-30-57</strong>. Этот шёл по <strong>2 маршруту</strong>. Грязноватый, конечно. Весь задний борт в какой-то серой накипи, окна в пыли, по бортам полосы от луж, которые он явно форсировал на скорости. Колёса в разводах, особенно левое заднее — будто его специально окунули в жидкую грязь. Праздничный день, а он такой замухрышка, обычный рабочий конь. Но меня это даже порадовало. Не всё же стерильные автобусы снимать. Правда жизни — она вот такая, в подтёках и дорожной грязи. Я вскинул камеру, пока <a href="https://fotobus.msk.ru/author/41215/"><strong>makstv</strong></a> что-то копался в своём рюкзаке, и щёлкнул. Один дубль, второй — на всякий случай. Неидеальный, но честный <strong>НефАЗ-5299-30-57</strong> на <strong>2-м маршруте</strong>. И мы пошли дальше, к <strong>улице Парковой</strong>, чувствуя, что день складывается богатым на кадры.</p>
+<img src="files/4.jpg" alt="">
+
+<p>Позже, пока мы дошли до <strong>улицы Парковой</strong>, удалось сфоткать только один автобус. Им снова оказался <strong>НефАЗ-5299-30-57</strong>, но на этот раз на <strong>16 маршруте</strong>. Техника как техника, привычный городской трудяга, ничего выдающегося. В этот момент автобус как раз стоял на остановке — высаживал или забирал пассажиров, не суть. Я уже почти опустил камеру, как вдруг заметил кое-что интересное. Какая-то машина — я даже не понял, что за модель, то ли микроавтобус, то ли внедорожник, — пошла на обгон стоящего на остановке <strong>НефАЗа</strong>. И на ней развевался флаг. Какой именно — я, честно говоря, так и не смог разглядеть. Флаг был небольшой, ветер его всё время выворачивал то одной стороной, то другой, плюс солнце било прямо в глаза. Цвета какие-то незнакомые, то ли триколор, но не наш, то ли вообще что-то редкое. Может, чей-то областной, может, общественной организации — без понятия. Но сам факт меня зацепил. Машина с флагом, лихо обгоняющая автобус прямо на остановке, — это уже не просто транспортная съёмка, а какая-то маленькая уличная драма. Я успел щёлкнуть, пока <strong>НефАЗ</strong> не закрыл её своей тушей. Пусть флаг остаётся загадкой. Может, кто в комментариях разглядит, если приблизить?</p>
+<img src="files/5.jpg" alt="">
+
+<p>Дальше мы пошли по <strong>улице Парковой</strong> в сторону вокзала. Дорога неблизкая, но фотографу к расстояниям не привыкать. Шли неспеша, перекидываясь редкими фразами, поглядывая по сторонам — вдруг ещё что-то интересное выскочит. И уже около <strong>автовокзала</strong> мы встретили ещё один <strong>НефАЗ-5299-30-57</strong>. Снова на <strong>16 маршруте</strong>. Видимо, сегодня у этих машин был какой-то свой парад. Этот экземпляр ехал по <strong>Привокзальной улице</strong>, неспешно подруливая к остановочному карману. Мы с <a href="https://fotobus.msk.ru/author/41215/"><strong>makstv</strong></a> сфоткали его прямо около <strong>автовокзала</strong>. Интересно, что само здание <strong>автовокзала</strong> стоит буквально рядышком с <strong>железнодорожным вокзалом</strong>, но в кадр он, конечно, не попал — только автобус, дорога и немного привокзальной суеты. А вот второй кадр мы сделали уже около <strong>ЖД вокзала</strong>, когда чуть прошли дальше. Так один <strong>НефАЗ</strong> на <strong>16 маршруте</strong> попал к нам в коллекцию сразу с двух точек: сначала у автовокзала, потом у железнодорожного. Разные фоны, разное настроение, но одна и та же машина. Будто маленькая серия снимков под названием «Один день из жизни вокзального автобуса».</p>
+<img src="files/6.jpg" alt="">
+
+<p>Дальше я решил немного отвлечься от автобусной темы. Пока мы были у вокзала, я не мог упустить возможность сфоткать <strong>паровоз Л-4305</strong>, который стоит здесь как памятник. Этот могучий железный ветеран возвышается на постаменте прямо у вокзальной площади, привлекая взгляды и детей, и взрослых. Паровоз серии <strong>«Л»</strong>, названной в честь легендарного конструктора <strong>Лебедянского</strong>, когда-то бороздил просторы нашей необъятной родины, тащил тяжёлые составы с углём и рудой, свистел на перегонах и дымил так, что за километр было видно. А теперь стоит, гордый и чёрный, с огромными колёсами и длинной трубой, напоминая всем нам о великой эпохе паровозной тяги. Я вскинул камеру, поймал ракурс, чтобы в кадр попал и паровоз целиком, и привокзальная архитектура на заднем плане. <strong>Л-4305</strong> получился просто шикарно — серьёзный, монументальный, с налётом времени и истории. Пусть в моём репортаже сегодня в основном автобусы, но один кадр старого доброго паровоза точно не будет лишним.</p>
+<img src="files/7.jpg" alt="">
+
+<p>Позже мы пошли на <strong>улицу Кунавина</strong>. Место само по себе не самое фотогеничное, но сегодня ему выпал шанс засиять. И там, как ни удивительно, мы снова встретили <strong>ЛиАЗ-5292.65</strong>. Тот самый, московский гость, на этот раз на <strong>11 маршруте</strong>. Интервал у них, конечно, был огромный — будто кто-то специально заставлял нас ждать. Но ожидание того стоило. Самое крутое началось в тот момент, когда автобус только показался из-за поворота. Небо, которое ещё минуту назад было ясным и солнечным, вдруг затянуло плотными тучами. Началась <strong>переменная облачность</strong>. Кадр получился просто бомбезный! В пасмурную погоду свет растекается мягко и ровно, без жёстких теней, без выбитых бликов на мокром асфальте и без пересветов на белых бортах. <strong>ЛиАЗ-5292.65</strong> на фоне серого неба смотрелся как настоящий инопланетный корабль — контрастный, объёмный, с чёткими линиями. Я сделал несколько дублей, пока облака не уползли дальше. <a href="https://fotobus.msk.ru/author/41215/"><strong>makstv</strong></a> тоже остался доволен — мы переглянулись и одновременно выдохнули. Вот за такие моменты мы и любим транспортную съёмку. Не за идеальные условия, а за ту самую «бомбезность», когда природа и техника встают в один строй.</p>
+<img src="files/8.jpg" alt="">
+
+<p>Потом у <a href="https://fotobus.msk.ru/author/41215/"><strong>makstv</strong></a> начало защипывать в глазах. Аллергия на пыльцу — весенняя классика, никуда от неё не деться, особенно когда столько часов торчишь на улице, нюхаешь выхлопные газы и цветущие тополя одновременно. Он протёр глаза, пару раз чихнул и сказал, что пора закругляться. Жалко, конечно, но здоровье важнее любых кадров. Мы пожали друг другу руки и разошлись по домам. А я уехал на <strong>автобусе №5</strong>. Модель — <strong>ПАЗ Вектор</strong>. Жёлтенький такой, привычный, невзрачный на первый взгляд, но родной. Зашёл, приложил карту, сел у окна и всю дорогу пересматривал отснятое на камере. День получился насыщенным: <strong>НефАЗы</strong>, <strong>ЛиАЗы</strong> из самой Москвы, загадочный флаг на обгоне, пожарная машина с номером <strong>6075СВО</strong>, паровоз <strong>Л-4305</strong>… И <strong>ПАЗ Вектор</strong> на <strong>5-м маршруте</strong> домой, как логичное завершение нашей транспортной истории. До новых встреч, друзья, и удачных кадров!</p>
+
+
+</div>
+    </div>
+
+    <div class="footer">
+        <p>2026, Фотограф sergaytrain</p>
+    </div>
+
+    <script>
+        // Функция для создания слайдера
+        function initSlider(containerId, imageNames) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            // Очищаем контейнер
+            container.innerHTML = '';
+            
+            // Создаём структуру слайдера
+            const sliderContainer = document.createElement('div');
+            sliderContainer.className = 'slider-container';
+            
+            const track = document.createElement('div');
+            track.className = 'slider-track';
+            
+            // Добавляем изображения
+            imageNames.forEach(src => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = 'Фото из поездки';
+                track.appendChild(img);
+            });
+            
+            sliderContainer.appendChild(track);
+            
+            // Кнопки навигации
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'slider-btn slider-prev';
+            prevBtn.innerHTML = '❮';
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'slider-btn slider-next';
+            nextBtn.innerHTML = '❯';
+            
+            sliderContainer.appendChild(prevBtn);
+            sliderContainer.appendChild(nextBtn);
+            
+            // Точки (dots)
+            const dotsContainer = document.createElement('div');
+            dotsContainer.className = 'slider-dots';
+            
+            for (let i = 0; i < imageNames.length; i++) {
+                const dot = document.createElement('span');
+                dot.className = 'dot';
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+            
+            container.appendChild(sliderContainer);
+            container.appendChild(dotsContainer);
+            
+            let currentIndex = 0;
+            const slides = track.children;
+            const totalSlides = slides.length;
+            
+            function updateSlider() {
+                const width = slides[0].clientWidth;
+                track.style.transform = `translateX(-${currentIndex * width}px)`;
+                
+                // Обновляем активную точку
+                const dots = dotsContainer.querySelectorAll('.dot');
+                dots.forEach((dot, i) => {
+                    if (i === currentIndex) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+            
+            function goToSlide(index) {
+                if (index < 0) index = 0;
+                if (index >= totalSlides) index = totalSlides - 1;
+                currentIndex = index;
+                updateSlider();
+            }
+            
+            function nextSlide() {
+                if (currentIndex < totalSlides - 1) {
+                    currentIndex++;
+                    updateSlider();
+                }
+            }
+            
+            function prevSlide() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateSlider();
+                }
+            }
+            
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+            
+            // Обновляем при изменении размера окна
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => updateSlider(), 150);
+            });
+            
+            // Добавляем небольшую задержку для корректного расчёта ширины
+            setTimeout(updateSlider, 100);
+        }
+        
+        // Инициализируем слайдеры после загрузки страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            // Слайдер для фото 19-24
+            initSlider('slider1', [
+                'files/19.jpg',
+                'files/20.jpg',
+                'files/21.jpg',
+                'files/22.jpg',
+                'files/23.jpg',
+                'files/24.jpg'
+            ]);
+            
+            // Слайдер для фото 28-29
+            initSlider('slider2', [
+                'files/28.jpg',
+                'files/29.jpg'
+            ]);
+        });
+    </script>
+</body>
+</html>

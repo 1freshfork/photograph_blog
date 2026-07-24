@@ -1,5 +1,5 @@
 {
-        "id": 5,
+        "id": 1,
         "photo_path": "uploads/photo_AQADrhtrG6C9GUt8_1784904075.jpg",
         "gallery_id": 1,
         "transport_ids": [
@@ -14,7 +14,7 @@
         "created_at": "2026-07-24T19:41:55.273703"
     },
     {
-        "id": 6,
+        "id": 2,
         "photo_path": "uploads/photo_AQADhBxrG6C9GUt8_1784905404.jpg",
         "gallery_id": 7,
         "transport_ids": [

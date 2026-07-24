@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog of photographer / Как работает?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-card: #1a1a1a;
+            --bg-card-hover: #222222;
+            --accent: #0066CC;
+            --accent-light: #00A3E0;
+            --accent-gradient: linear-gradient(135deg, #0066CC 0%, #00A3E0 100%);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --border: #2a2a2a;
+            --border-light: #333333;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            --shadow-accent: 0 4px 20px rgba(0, 102, 204, 0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Навбар */
+        .navbar {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo h1 {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .navbar-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-links a:hover {
+            color: var(--text-primary);
+            background: var(--bg-card);
+        }
+
+        .navbar-links a.active {
+            color: var(--accent-light);
+            background: rgba(0, 102, 204, 0.1);
+        }
+
+        /* Основной контент */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* Hero секция */
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 16px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Секции */
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section h2 .icon {
+            font-size: 32px;
+        }
+
+        .section p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        /* Карточки компонентов */
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .component-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .component-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-light);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-accent);
+        }
+
+        .component-card .icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .component-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .component-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .component-card .tech {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .component-card .tech span {
+            display: inline-block;
+            background: var(--bg-secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        /* Пошаговая схема */
+        .steps {
+            margin-top: 32px;
+        }
+
+        .step {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 60px;
+            bottom: -32px;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .step:last-child::before {
+            display: none;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-content {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+        }
+
+        .step-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Схема архитектуры */
+        .architecture {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            margin-top: 32px;
+        }
+
+        .architecture-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .arch-box {
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .arch-box .icon {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+        .arch-box h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .arch-box p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .arch-arrow {
+            font-size: 24px;
+            color: var(--accent-light);
+        }
+
+        /* Таблица технологий */
+        .tech-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .tech-table th,
+        .tech-table td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tech-table th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tech-table td {
+            font-size: 14px;
+        }
+
+        .tech-table td:first-child {
+            font-weight: 600;
+            color: var(--accent-light);
+        }
+
+        .tech-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Футер */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 24px 40px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: var(--accent-light);
+            text-decoration: none;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 20px;
+                height: 60px;
+            }
+
+            .navbar-links {
+                display: none;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section h2 {
+                font-size: 24px;
+            }
+
+            .components-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .step::before {
+                display: none;
+            }
+
+            .architecture-diagram {
+                flex-direction: column;
+            }
+
+            .arch-arrow {
+                transform: rotate(90deg);
+            }
+
+            .tech-table {
+                font-size: 12px;
+            }
+
+            .tech-table th,
+            .tech-table td {
+                padding: 12px;
+            }
+        }
+
+        /* Анимация */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .component-card,
+        .step {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .component-card:nth-child(1) { animation-delay: 0.1s; }
+        .component-card:nth-child(2) { animation-delay: 0.2s; }
+        .component-card:nth-child(3) { animation-delay: 0.3s; }
+        .component-card:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html"><h1>blog of photographer</h1></a>
+        </div>
+        <div class="navbar-links">
+            <a href="../index.html">Главная</a>
+            <a href="../db/">Базы данных</a>
+            <a href="../telegram/">Telegram канал</a>
+            <a href="#" class="active">Как работает?</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Как работает проект?</h1>
+            <p>Полное описание архитектуры, технологий и процессов работы фото-блога</p>
+        </div>
+
+        <!-- Основные компоненты -->
+        <div class="section">
+            <h2><span class="icon">️</span> Основные компоненты</h2>
+            <p>Проект состоит из нескольких ключевых компонентов, которые работают вместе для автоматизации публикации фотографий.</p>
+            
+            <div class="components-grid">
+                <div class="component-card">
+                    <div class="icon"></div>
+                    <h3>Telegram-бот</h3>
+                    <p>Основной инструмент администратора. Принимает фотографии, управляет базой данных, парсит информацию о транспорте и публикует посты в канал.</p>
+                    <div class="tech">
+                        <span>Python 3.14</span>
+                        <span>Aiogram 3.x</span>
+                        <span>FSM</span>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="icon">📦</div>
+                    <h3>GitHub репозиторий</h3>
+                    <p>Хранилище всех данных: фотографий, баз данных постов, транспортных средств и галерей. Работает как база данных через REST API.</p>
+                    <div class="tech">
+                        <span>GitHub API</span>
+                        <span>JSON</span>
+                        <span>Base64</span>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="icon">🌐</div>
+                    <h3>Веб-сайт</h3>
+                    <p>Публичный интерфейс для просмотра фотографий. Загружает данные напрямую из GitHub репозитория и отображает их в удобном формате.</p>
+                    <div class="tech">
+                        <span>HTML5</span>
+                        <span>CSS3</span>
+                        <span>JavaScript</span>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="icon">📡</div>
+                    <h3>Transphoto.org парсер</h3>
+                    <p>Автоматическое извлечение информации о транспортных средствах с сайта transphoto.org по ссылке.</p>
+                    <div class="tech">
+                        <span>BeautifulSoup</span>
+                        <span>Requests</span>
+                        <span>HTML Parsing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Схема архитектуры -->
+        <div class="section">
+            <h2><span class="icon">🏗️</span> Архитектура системы</h2>
+            <p>Все компоненты взаимодействуют через GitHub как центральное хранилище данных.</p>
+            
+            <div class="architecture">
+                <div class="architecture-diagram">
+                    <div class="arch-box">
+                        <div class="icon">📱</div>
+                        <h4>Администратор</h4>
+                        <p>Telegram</p>
+                    </div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-box">
+                        <div class="icon">🤖</div>
+                        <h4>Бот</h4>
+                        <p>Python</p>
+                    </div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-box">
+                        <div class="icon">📦</div>
+                        <h4>GitHub</h4>
+                        <p>Хранилище</p>
+                    </div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-box">
+                        <div class="icon">🌐</div>
+                        <h4>Сайт</h4>
+                        <p>HTML/JS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Процесс добавления поста -->
+        <div class="section">
+            <h2><span class="icon">📝</span> Процесс добавления поста</h2>
+            <p>Пошаговое описание того, как создаётся новая публикация.</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Загрузка фотографии</h3>
+                        <p>Администратор отправляет фото боту. Бот сжимает изображение (до 1280px) и загружает в папку <code>uploads/</code> репозитория через GitHub API.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Выбор галереи</h3>
+                        <p>Бот показывает список галерей из <code>gallery.json</code>. Можно выбрать существующую или создать новую.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Добавление транспортных средств</h3>
+                        <p>Ввод номера Т/С или ссылки на transphoto.org. Бот ищет в базе <code>transport.json</code> или парсит данные с сайта. Можно добавить до 40 Т/С на пост.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Указание маршрута</h3>
+                        <p>Ввод номера маршрута (например, "11" или "11, 5"). Применяется ко всем Т/С в посте.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Место съёмки (3 этапа)</h3>
+                        <p>Пошаговый ввод: <strong>Страна</strong> → <strong>Область/Регион</strong> → <strong>Город/Место</strong>. Данные сохраняются раздельно для гибкости.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h3>Дата съёмки</h3>
+                        <p>Ввод в формате ДД.ММ.ГГГГ. Бот автоматически форматирует в "14 Июля 2024".</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">7</div>
+                    <div class="step-content">
+                        <h3>Публикация</h3>
+                        <p>Бот сохраняет пост в <code>photos.json</code> и отправляет фото с подписью в Telegram-канал. Подпись включает Т/С, маршрут, место и дату.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Структура данных -->
+        <div class="section">
+            <h2><span class="icon">🗄️</span> Структура данных</h2>
+            <p>Все данные хранятся в JSON-файлах в корне репозитория.</p>
+            
+            <table class="tech-table">
+                <thead>
+                    <tr>
+                        <th>Файл</th>
+                        <th>Назначение</th>
+                        <th>Содержимое</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>photos.json</td>
+                        <td>База постов</td>
+                        <td>ID, путь к фото, галерея, Т/С, место, дата</td>
+                    </tr>
+                    <tr>
+                        <td>transport.json</td>
+                        <td>База Т/С</td>
+                        <td>Модель, номер, депо, год, VIN, статус</td>
+                    </tr>
+                    <tr>
+                        <td>gallery.json</td>
+                        <td>Категории</td>
+                        <td>ID и название галереи</td>
+                    </tr>
+                    <tr>
+                        <td>uploads/*.jpg</td>
+                        <td>Фотографии</td>
+                        <td>Сжатые JPEG изображения</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Технологии -->
+        <div class="section">
+            <h2><span class="icon">💻</span> Используемые технологии</h2>
+            <p>Стек технологий, на котором построен проект.</p>
+            
+            <table class="tech-table">
+                <thead>
+                    <tr>
+                        <th>Компонент</th>
+                        <th>Технология</th>
+                        <th>Версия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Язык программирования</td>
+                        <td>Python</td>
+                        <td>3.14</td>
+                    </tr>
+                    <tr>
+                        <td>Telegram фреймворк</td>
+                        <td>Aiogram</td>
+                        <td>3.x</td>
+                    </tr>
+                    <tr>
+                        <td>Обработка изображений</td>
+                        <td>Pillow (PIL)</td>
+                        <td>Latest</td>
+                    </tr>
+                    <tr>
+                        <td>Парсинг HTML</td>
+                        <td>BeautifulSoup</td>
+                        <td>4.x</td>
+                    </tr>
+                    <tr>
+                        <td>HTTP-запросы</td>
+                        <td>Requests</td>
+                        <td>2.x</td>
+                    </tr>
+                    <tr>
+                        <td>Хранилище данных</td>
+                        <td>GitHub API</td>
+                        <td>REST v3</td>
+                    </tr>
+                    <tr>
+                        <td>Фронтенд</td>
+                        <td>HTML/CSS/JS</td>
+                        <td>Vanilla</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Особенности -->
+        <div class="section">
+            <h2><span class="icon">✨</span> Ключевые особенности</h2>
+            
+            <div class="components-grid">
+                <div class="component-card">
+                    <div class="icon">🔄</div>
+                    <h3>Автоматическая инициализация</h3>
+                    <p>При первом запуске бот автоматически создаёт все необходимые файлы и папки в репозитории.</p>
+                </div>
+
+                <div class="component-card">
+                    <div class="icon">️</div>
+                    <h3>Сжатие изображений</h3>
+                    <p>Фото автоматически сжимаются до 1280px для экономии места и ускорения загрузки.</p>
+                </div>
+
+                <div class="component-card">
+                    <div class="icon">🔍</div>
+                    <h3>Умный парсинг</h3>
+                    <p>Автоматическое извлечение всех характеристик Т/С с transphoto.org по ссылке.</p>
+                </div>
+
+                <div class="component-card">
+                    <div class="icon"></div>
+                    <h3>Адаптивный дизайн</h3>
+                    <p>Веб-сайт корректно отображается на всех устройствах: от мобильных до десктопов.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>2026, <a href="#">sergaytrain</a>. Все права защищены.</p>
+    </footer>
+</body>
+</html>

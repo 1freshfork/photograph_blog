@@ -75,5 +75,20 @@
         "date_raw": "28.05.2026",
         "date_formatted": "28 Мая 2026",
         "created_at": "2026-07-24T20:28:55.088382"
+    },
+    {
+        "id": 6,
+        "photo_path": "uploads/photo_AQADmxdrG6C9IUt8_1784920868.jpg",
+        "gallery_id": 7,
+        "transport_ids": [
+            12
+        ],
+        "route": "",
+        "country": "Россия",
+        "region": "Свердловская область",
+        "city": "Екатеринбург",
+        "date_raw": "22.07.2026",
+        "date_formatted": "22 Июля 2026",
+        "created_at": "2026-07-24T21:22:26.479996"
     }
 ]

@@ -4,7 +4,8 @@
         "photo_path": "uploads/photo_AQADrhtrG6C9GUt8_1784906411.jpg",
         "gallery_id": 1,
         "transport_ids": [
-            2
+            2,
+            1
         ],
         "route": "36",
         "country": "Россия",

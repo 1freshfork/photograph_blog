@@ -10,5 +10,18 @@
         "date_raw": "22.07.2026",
         "date_formatted": "22 Июля 2026",
         "created_at": "2026-07-24T19:04:42.622189"
+    },
+    {
+        "id": 2,
+        "photo_path": "uploads/photo_AQADrhtrG6C9GUt8_1784902919.jpg",
+        "gallery_id": 1,
+        "transport_ids": [
+            2
+        ],
+        "route": "36",
+        "location": "Россия, Свердловская область, Екатеринбург, Улица Декабристов",
+        "date_raw": "22.07.2026",
+        "date_formatted": "22 Июля 2026",
+        "created_at": "2026-07-24T19:22:52.658901"
     }
 ]

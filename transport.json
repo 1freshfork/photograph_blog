@@ -100,5 +100,21 @@
         "start_date": "20.01.2006",
         "note": "Импортировано с transphoto.org",
         "source_url": "https://transphoto.org/vehicle/7824/#n7931"
+    },
+    {
+        "id": 11,
+        "board_number": "333",
+        "gov_number": "",
+        "model": "НефАЗ-5299-40-57 (CNG)",
+        "route": "65",
+        "year": "",
+        "depot": "Автобусное предприятие №2",
+        "city": "Екатеринбург",
+        "status": "Эксплуатируется",
+        "factory_number": "4483",
+        "vin": "X1F529900M1004483",
+        "purpose": "Линейный",
+        "start_date": "08.2021",
+        "note": ""
     }
 ]

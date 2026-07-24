@@ -66,5 +66,22 @@
         "start_date": "08.05.2024",
         "note": "Импортировано с transphoto.org",
         "source_url": "https://transphoto.org/vehicle/587074/#n786247"
+    },
+    {
+        "id": 9,
+        "board_number": "314",
+        "gov_number": "",
+        "model": "ЗиУ-682Г [Г00]",
+        "route": "",
+        "year": "1995",
+        "depot": "Орджоникидзевское троллейбусное депо",
+        "city": "ЕкатеринбургРоссия",
+        "status": "Выведен из эксплуатации / ожидание исключения",
+        "factory_number": "5490",
+        "vin": "",
+        "purpose": "Пассажирский",
+        "start_date": "",
+        "note": "Импортировано с transphoto.org",
+        "source_url": "https://transphoto.org/vehicle/8199/#n8306"
     }
 ]

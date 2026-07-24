@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog of photographer / Просмотр фото</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-card: #1a1a1a;
+            --bg-card-hover: #222222;
+            --accent: #0066CC;
+            --accent-light: #00A3E0;
+            --accent-gradient: linear-gradient(135deg, #0066CC 0%, #00A3E0 100%);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --border: #2a2a2a;
+            --border-light: #333333;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            --shadow-accent: 0 4px 20px rgba(0, 102, 204, 0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Навбар */
+        .navbar {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo h1 {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .navbar-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-links a:hover {
+            color: var(--text-primary);
+            background: var(--bg-card);
+        }
+
+        .navbar-links a.active {
+            color: var(--accent-light);
+            background: rgba(0, 102, 204, 0.1);
+        }
+
+        /* Основной контент */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* Хлебные крошки */
+        .breadcrumbs {
+            margin-bottom: 24px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .breadcrumbs a {
+            color: var(--accent-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumbs a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        /* Заголовок поста */
+        .post-header {
+            margin-bottom: 32px;
+        }
+
+        .post-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .post-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Изображение */
+        .image-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Секция Т/С */
+        .transport-section {
+            margin-bottom: 40px;
+        }
+
+        .transport-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .transport-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 24px;
+        }
+
+        .transport-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .transport-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-accent);
+        }
+
+        .transport-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .transport-card-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .transport-card-number {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Таблица характеристик */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .specs-table tr {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .specs-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .specs-table td {
+            padding: 12px 0;
+            font-size: 14px;
+        }
+
+        .specs-table td:first-child {
+            color: var(--text-muted);
+            width: 40%;
+            font-weight: 500;
+        }
+
+        .specs-table td:last-child {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .specs-table a {
+            color: var(--accent-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .specs-table a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        /* Состояние загрузки */
+        .loading {
+            text-align: center;
+            padding: 60px 40px;
+            color: var(--text-secondary);
+        }
+
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--border);
+            border-top-color: var(--accent-light);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Состояние ошибки */
+        .error {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .error h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .error p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .error a {
+            color: var(--accent-light);
+            text-decoration: none;
+        }
+
+        /* Футер */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 24px 40px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: var(--accent-light);
+            text-decoration: none;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 20px;
+                height: 60px;
+            }
+
+            .navbar-links {
+                display: none;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .post-header h1 {
+                font-size: 24px;
+            }
+
+            .transport-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .post-meta {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html"><h1>blog of photographer</h1></a>
+        </div>
+        <div class="navbar-links">
+            <a href="index.html">Главная</a>
+            <a href="db/">Базы данных</a>
+            <a href="telegram/">Telegram канал</a>
+            <a href="how-work/">Как работает?</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="breadcrumbs">
+            <a href="index.html">Главная</a> / <span id="breadcrumbId">Загрузка...</span>
+        </div>
+
+        <div id="content">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>Загрузка фотографии...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>2026, <a href="#">sergaytrain</a>. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Получение ID из URL
+        function getPhotoId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('id');
+        }
+
+        // Загрузка данных
+        async function loadPhotoData() {
+            const photoId = getPhotoId();
+            const contentDiv = document.getElementById('content');
+            const breadcrumbId = document.getElementById('breadcrumbId');
+
+            if (!photoId) {
+                contentDiv.innerHTML = `
+                    <div class="error">
+                        <h2>ID фотографии не указан</h2>
+                        <p>Перейдите на <a href="index.html">главную страницу</a> и выберите фотографию.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            breadcrumbId.textContent = `Фото #${photoId}`;
+
+            try {
+                // Загружаем оба JSON файла параллельно
+                const [photosResponse, transportResponse] = await Promise.all([
+                    fetch('https://raw.githubusercontent.com/1freshfork/photograph_blog/refs/heads/main/photos.json'),
+                    fetch('https://raw.githubusercontent.com/1freshfork/photograph_blog/refs/heads/main/transport.json')
+                ]);
+
+                if (!photosResponse.ok || !transportResponse.ok) {
+                    throw new Error('Ошибка загрузки данных');
+                }
+
+                const photos = await photosResponse.json();
+                const transports = await transportResponse.json();
+
+                // Находим нужный пост
+                const photo = photos.find(p => p.id === parseInt(photoId));
+
+                if (!photo) {
+                    contentDiv.innerHTML = `
+                        <div class="error">
+                            <h2>Фотография не найдена</h2>
+                            <p>Фото с ID #${photoId} не существует. <a href="index.html">Вернуться на главную</a>.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Находим все Т/С для этого поста
+                const photoTransports = transports.filter(t => 
+                    photo.transport_ids && photo.transport_ids.includes(t.id)
+                );
+
+                // Отображаем контент
+                renderPhoto(photo, photoTransports);
+
+            } catch (error) {
+                console.error('Ошибка загрузки:', error);
+                contentDiv.innerHTML = `
+                    <div class="error">
+                        <h2>Ошибка загрузки</h2>
+                        <p>Не удалось загрузить данные. Проверьте подключение к интернету или попробуйте позже.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Отображение фотографии и информации
+        function renderPhoto(photo, photoTransports) {
+            const contentDiv = document.getElementById('content');
+            const photoUrl = `https://raw.githubusercontent.com/1freshfork/photograph_blog/refs/heads/main/${photo.photo_path}`;
+
+            // Формируем место съёмки
+            const locationParts = [photo.country, photo.region, photo.city].filter(p => p);
+            const location = locationParts.join(', ') || 'Местоположение не указано';
+
+            // HTML для Т/С
+            const transportHTML = photoTransports.length > 0 
+                ? photoTransports.map(t => createTransportCard(t)).join('')
+                : '<p style="color: var(--text-secondary);">Транспортные средства не указаны</p>';
+
+            contentDiv.innerHTML = `
+                <div class="post-header">
+                    <h1>Фото #${photo.id}</h1>
+                    <div class="post-meta">
+                        <span>📍 ${location}</span>
+                        <span> ${photo.date_formatted || 'Дата не указана'}</span>
+                        ${photo.route ? `<span> Маршрут №${photo.route}</span>` : ''}
+                        <span> ${photoTransports.length} Т/С</span>
+                    </div>
+                </div>
+
+                <div class="image-container">
+                    <img src="${photoUrl}" alt="Фото #${photo.id}" loading="lazy">
+                </div>
+
+                <div class="transport-section">
+                    <h2>Транспортные средства на фото</h2>
+                    <div class="transport-cards">
+                        ${transportHTML}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Создание карточки Т/С
+        function createTransportCard(transport) {
+            const number = transport.board_number || transport.gov_number || '?';
+            const model = transport.model || 'Неизвестная модель';
+
+            return `
+                <div class="transport-card">
+                    <div class="transport-card-header">
+                        <div class="transport-card-title">${model}</div>
+                        <div class="transport-card-number">№${number}</div>
+                    </div>
+                    <table class="specs-table">
+                        ${transport.city ? `<tr><td>Город</td><td>${transport.city}</td></tr>` : ''}
+                        ${transport.depot ? `<tr><td>Депо/Парк</td><td>${transport.depot}</td></tr>` : ''}
+                        ${transport.year ? `<tr><td>Построен</td><td>${transport.year}</td></tr>` : ''}
+                        ${transport.factory_number ? `<tr><td>Заводской №</td><td>${transport.factory_number}</td></tr>` : ''}
+                        ${transport.vin ? `<tr><td>VIN</td><td>${transport.vin}</td></tr>` : ''}
+                        ${transport.status ? `<tr><td>Текущее состояние</td><td>${transport.status}</td></tr>` : ''}
+                        ${transport.purpose ? `<tr><td>Назначение</td><td>${transport.purpose}</td></tr>` : ''}
+                        ${transport.start_date ? `<tr><td>Начало работы</td><td>${transport.start_date}</td></tr>` : ''}
+                        ${transport.route ? `<tr><td>Маршрут</td><td>№${transport.route}</td></tr>` : ''}
+                    </table>
+                </div>
+            `;
+        }
+
+        // Загружаем данные при загрузке страницы
+        document.addEventListener('DOMContentLoaded', loadPhotoData);
+    </script>
+</body>
+</html>

@@ -49,5 +49,22 @@
         "start_date": "19.03.2026",
         "note": "Импортировано с transphoto.org",
         "source_url": "https://transphoto.org/vehicle/637758/#n848159"
+    },
+    {
+        "id": 8,
+        "board_number": "850",
+        "gov_number": "",
+        "model": "71-639 «Кастор»",
+        "route": "",
+        "year": "02.2024",
+        "depot": "Западное трамвайное депо",
+        "city": "ЕкатеринбургРоссия",
+        "status": "Эксплуатируется",
+        "factory_number": "1",
+        "vin": "",
+        "purpose": "Пассажирский",
+        "start_date": "08.05.2024",
+        "note": "Импортировано с transphoto.org",
+        "source_url": "https://transphoto.org/vehicle/587074/#n786247"
     }
 ]

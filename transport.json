@@ -116,5 +116,21 @@
         "purpose": "Линейный",
         "start_date": "08.2021",
         "note": ""
+    },
+    {
+        "id": 12,
+        "board_number": "Н/У",
+        "gov_number": "",
+        "model": "Н/У",
+        "route": "Н/У",
+        "year": "Н/У",
+        "depot": "Н/У",
+        "city": "Н/У",
+        "status": "Н/У",
+        "factory_number": "Н/У",
+        "vin": "Н/У",
+        "purpose": "Н/У",
+        "start_date": "Н/У",
+        "note": "Н/У"
     }
 ]

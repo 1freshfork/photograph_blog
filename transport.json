@@ -83,5 +83,22 @@
         "start_date": "",
         "note": "Импортировано с transphoto.org",
         "source_url": "https://transphoto.org/vehicle/8199/#n8306"
+    },
+    {
+        "id": 10,
+        "board_number": "384",
+        "gov_number": "",
+        "model": "ЗиУ-682Г-016 (012)",
+        "route": "",
+        "year": "2005",
+        "depot": "Орджоникидзевское троллейбусное депо",
+        "city": "ЕкатеринбургРоссия",
+        "status": "Эксплуатируется",
+        "factory_number": "8326",
+        "vin": "",
+        "purpose": "Пассажирский",
+        "start_date": "20.01.2006",
+        "note": "Импортировано с transphoto.org",
+        "source_url": "https://transphoto.org/vehicle/7824/#n7931"
     }
 ]

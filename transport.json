@@ -32,5 +32,22 @@
         "start_date": "07.07.2026",
         "note": "Импортировано с transphoto.org",
         "source_url": "https://transphoto.org/vehicle/644202/#n857526"
+    },
+    {
+        "id": 7,
+        "board_number": "268",
+        "gov_number": "",
+        "model": "УТТЗ-6241.01 «Горожанин»",
+        "route": "",
+        "year": "02.2026",
+        "depot": "Октябрьское троллейбусное депо",
+        "city": "ЕкатеринбургРоссия",
+        "status": "Эксплуатируется",
+        "factory_number": "20",
+        "vin": "X89624101TEGJ2020",
+        "purpose": "Пассажирский",
+        "start_date": "19.03.2026",
+        "note": "Импортировано с transphoto.org",
+        "source_url": "https://transphoto.org/vehicle/637758/#n848159"
     }
 ]

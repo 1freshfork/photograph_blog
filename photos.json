@@ -14,5 +14,20 @@
         "date_raw": "22.07.2026",
         "date_formatted": "22 Июля 2026",
         "created_at": "2026-07-24T20:20:50.627988"
+    },
+    {
+        "id": 2,
+        "photo_path": "uploads/photo_AQAD1hxrG6C9GUt8_1784908135.jpg",
+        "gallery_id": 1,
+        "transport_ids": [
+            7
+        ],
+        "route": "27",
+        "country": "Россия",
+        "region": "Свердловская область",
+        "city": "Екатеринбург, Улица Декабристов",
+        "date_raw": "22.07.2026",
+        "date_formatted": "22 Июля 2026",
+        "created_at": "2026-07-24T20:49:57.903285"
     }
 ]

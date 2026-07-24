@@ -1,28 +1,44 @@
 [
-    {
-        "id": 1,
-        "board_number": "",
-        "gov_number": "",
-        "model": "Екатеринбург, троллейбус № 251",
-        "route": "",
-        "year": "",
-        "depot": "",
-        "note": "Импортировано"
-    },
-    {
-        "id": 2,
-        "board_number": "251",
-        "gov_number": "",
-        "model": "",
-        "route": "",
-        "year": "",
-        "depot": "",
-        "city": "Екатеринбург",
-        "status": "",
-        "factory_number": "",
-        "vin": "",
-        "purpose": "",
-        "start_date": "",
-        "note": "Импортировано с transphoto.org"
-    }
+  {
+    "id": 1,
+    "board_number": "",
+    "gov_number": "",
+    "model": "Екатеринбург, троллейбус № 251",
+    "route": "",
+    "year": "",
+    "depot": "",
+    "note": "Импортировано"
+  },
+  {
+    "id": 2,
+    "board_number": "251",
+    "gov_number": "",
+    "model": "",
+    "route": "",
+    "year": "",
+    "depot": "",
+    "city": "Екатеринбург",
+    "status": "",
+    "factory_number": "",
+    "vin": "",
+    "purpose": "",
+    "start_date": "",
+    "note": "Импортировано с transphoto.org"
+  },
+  {
+    "id": 3,
+    "board_number": "251",
+    "gov_number": "",
+    "model": "",
+    "route": "",
+    "year": "",
+    "depot": "",
+    "city": "Екатеринбург",
+    "status": "",
+    "factory_number": "",
+    "vin": "",
+    "purpose": "",
+    "start_date": "",
+    "note": "transphoto.org"
+  }
 ]

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog of photographer / Telegram канал</title>
+    <meta http-equiv="refresh" content="5;url=https://t.me/photograph_blog">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-card: #1a1a1a;
+            --bg-card-hover: #222222;
+            --accent: #0066CC;
+            --accent-light: #00A3E0;
+            --accent-gradient: linear-gradient(135deg, #0066CC 0%, #00A3E0 100%);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --border: #2a2a2a;
+            --border-light: #333333;
+            --tg-color: #2AABEE;
+            --tg-dark: #229ED9;
+            --tg-gradient: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            --shadow-tg: 0 4px 30px rgba(42, 171, 238, 0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Навбар */
+        .navbar {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo h1 {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .navbar-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-links a:hover {
+            color: var(--text-primary);
+            background: var(--bg-card);
+        }
+
+        .navbar-links a.active {
+            color: var(--accent-light);
+            background: rgba(0, 102, 204, 0.1);
+        }
+
+        /* Основной контент */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            flex: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Карточка Telegram */
+        .tg-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 48px;
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .tg-icon-wrapper {
+            width: 100px;
+            height: 100px;
+            background: var(--tg-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            box-shadow: var(--shadow-tg);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .tg-icon-wrapper svg {
+            width: 50px;
+            height: 50px;
+            fill: white;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 4px 30px rgba(42, 171, 238, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 4px 40px rgba(42, 171, 238, 0.5);
+            }
+        }
+
+        .tg-card h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .tg-card .subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 32px;
+        }
+
+        .tg-card .channel-name {
+            display: inline-block;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--tg-color);
+            font-weight: 600;
+            margin-bottom: 32px;
+        }
+
+        .tg-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--tg-gradient);
+            color: white;
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-tg);
+        }
+
+        .tg-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 40px rgba(42, 171, 238, 0.5);
+        }
+
+        .tg-button svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        /* Счётчик */
+        .redirect-info {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .redirect-info p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .countdown {
+            font-size: 32px;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Преимущества */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 32px;
+            width: 100%;
+            max-width: 600px;
+            animation: fadeIn 0.6s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .feature-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            text-align: center;
+        }
+
+        .feature-item .icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .feature-item p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Футер */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 24px 40px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: var(--accent-light);
+            text-decoration: none;
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 20px;
+                height: 60px;
+            }
+
+            .navbar-links {
+                display: none;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .tg-card {
+                padding: 32px 24px;
+            }
+
+            .tg-card h1 {
+                font-size: 22px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .tg-icon-wrapper {
+                width: 80px;
+                height: 80px;
+            }
+
+            .tg-icon-wrapper svg {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html"><h1>blog of photographer</h1></a>
+        </div>
+        <div class="navbar-links">
+            <a href="../index.html">Главная</a>
+            <a href="../db/">Базы данных</a>
+            <a href="#" class="active">Telegram канал</a>
+            <a href="../how-work/">Как работает?</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="tg-card">
+            <div class="tg-icon-wrapper">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                </svg>
+            </div>
+
+            <h1>Telegram канал</h1>
+            <p class="subtitle">Подписывайтесь на наш канал, чтобы получать свежие публикации первыми</p>
+
+            <div class="channel-name">@photograph_blog</div>
+
+            <br>
+
+            <a href="https://t.me/photograph_blog" class="tg-button" id="tgButton">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                </svg>
+                Открыть канал
+            </a>
+
+            <div class="redirect-info">
+                <p>Автоматический переход через</p>
+                <div class="countdown" id="countdown">5</div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-item">
+                <div class="icon">📸</div>
+                <p>Свежие фотографии</p>
+            </div>
+            <div class="feature-item">
+                <div class="icon">🚃</div>
+                <p>Информация о Т/С</p>
+            </div>
+            <div class="feature-item">
+                <div class="icon">🗓</div>
+                <p>Регулярные публикации</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>2026, <a href="#">sergaytrain</a>. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Обратный отсчёт и автоматическое перенаправление
+        let seconds = 5;
+        const countdownEl = document.getElementById('countdown');
+        const tgButton = document.getElementById('tgButton');
+
+        const timer = setInterval(() => {
+            seconds--;
+            countdownEl.textContent = seconds;
+
+            if (seconds <= 0) {
+                clearInterval(timer);
+                window.location.href = 'https://t.me/photograph_blog';
+            }
+        }, 1000);
+
+        // Отмена таймера при клике на кнопку
+        tgButton.addEventListener('click', () => {
+            clearInterval(timer);
+        });
+    </script>
+</body>
+</html>

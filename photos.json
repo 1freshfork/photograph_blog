@@ -60,5 +60,20 @@
         "date_raw": "28.05.2026",
         "date_formatted": "28 Мая 2026",
         "created_at": "2026-07-24T21:13:45.390025"
+    },
+    {
+        "id": 5,
+        "photo_path": "uploads/photo_AQADDhdrG6C9IUt8_1784917608.jpg",
+        "gallery_id": 1,
+        "transport_ids": [
+            11
+        ],
+        "route": "65",
+        "country": "Россия",
+        "region": "Свердловская область",
+        "city": "Екатеринбург, Привокзальная площадь",
+        "date_raw": "28.05.2026",
+        "date_formatted": "28 Мая 2026",
+        "created_at": "2026-07-24T20:28:55.088382"
     }
 ]

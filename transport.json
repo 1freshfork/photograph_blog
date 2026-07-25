@@ -149,5 +149,21 @@
         "start_date": "27.02.2025",
         "note": "Импортировано с transphoto.org",
         "source_url": "https://transphoto.org/vehicle/605587/#n805016"
+    },
+    {
+        "id": 14,
+        "board_number": "ЭС104-005",
+        "gov_number": "",
+        "model": "ЭС104 «Финист»",
+        "route": "",
+        "year": "11.2023",
+        "depot": "ТЧПРИГ-21 Свердловск",
+        "city": "Свердловская железная дорога",
+        "status": "Эксплуатируется",
+        "factory_number": "",
+        "vin": "13934583",
+        "purpose": "Линейный",
+        "start_date": "11.2023",
+        "note": "5-вагонная составность"
     }
 ]

@@ -90,5 +90,20 @@
         "date_raw": "22.07.2026",
         "date_formatted": "22 Июля 2026",
         "created_at": "2026-07-24T21:22:26.479996"
+    },
+    {
+        "id": 7,
+        "photo_path": "uploads/photo_AQADORtrGzfKKUt8_1784985197.jpg",
+        "gallery_id": 1,
+        "transport_ids": [
+            13
+        ],
+        "route": "26",
+        "country": "Россия",
+        "region": "Свердловская область",
+        "city": "Екатеринбург, Улица Малышева, Каменный мост",
+        "date_raw": "22.07.2026",
+        "date_formatted": "22 Июля 2026",
+        "created_at": "2026-07-25T15:14:32.111443"
     }
 ]

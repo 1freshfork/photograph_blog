@@ -135,5 +135,20 @@
         "date_raw": "29.07.2026",
         "date_formatted": "29 Июля 2026",
         "created_at": "2026-07-29T16:24:01.705351"
+    },
+    {
+        "id": 10,
+        "photo_path": "uploads/photo_AQADGhprG5ePUEt8_1785335385.jpg",
+        "gallery_id": 1,
+        "transport_ids": [
+            16
+        ],
+        "route": "",
+        "country": "Россия",
+        "region": "Свердловская облась",
+        "city": "Перегон Кунавино — Каменск-Уральский",
+        "date_raw": "29.07.2026",
+        "date_formatted": "29 Июля 2026",
+        "created_at": "2026-07-29T16:51:21.939856"
     }
 ]

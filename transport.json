@@ -213,5 +213,21 @@
         "purpose": "Линейный",
         "start_date": "04.2012",
         "note": ""
+    },
+    {
+        "id": 18,
+        "board_number": "ЭС104-047",
+        "gov_number": "",
+        "model": "ЭС104",
+        "route": "",
+        "year": "12.2025",
+        "depot": "ТЧПРИГ-21 Свердловск",
+        "city": "",
+        "status": "Экспуатируется",
+        "factory_number": "",
+        "vin": "",
+        "purpose": "Линейный",
+        "start_date": "",
+        "note": ""
     }
 ]

@@ -120,5 +120,20 @@
         "date_raw": "25.07.2026",
         "date_formatted": "25 Июля 2026",
         "created_at": "2026-07-25T16:39:08.722640"
+    },
+    {
+        "id": 9,
+        "photo_path": "uploads/photo_AQADFxprG5ePUEt8_1785334918.jpg",
+        "gallery_id": 2,
+        "transport_ids": [
+            15
+        ],
+        "route": "Поезд №122 Оренбург-Екатеринбург",
+        "country": "Россия",
+        "region": "Свердловская область",
+        "city": "Перегон Каменск-Уральский — Кунавино",
+        "date_raw": "29.07.2026",
+        "date_formatted": "29 Июля 2026",
+        "created_at": "2026-07-29T16:24:01.705351"
     }
 ]

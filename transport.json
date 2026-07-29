@@ -181,5 +181,21 @@
         "purpose": "Линейное",
         "start_date": "05.2008",
         "note": ""
+    },
+    {
+        "id": 16,
+        "board_number": "2ТЭ116У-0180",
+        "gov_number": "",
+        "model": "2ТЭ116У",
+        "route": "",
+        "year": "11.2012",
+        "depot": "ТЧЭ-18 Сургут",
+        "city": "",
+        "status": "Экспуатируется",
+        "factory_number": "",
+        "vin": "16493546/16493553",
+        "purpose": "Линейный",
+        "start_date": "",
+        "note": ""
     }
 ]

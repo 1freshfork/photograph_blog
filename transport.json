@@ -197,5 +197,21 @@
         "purpose": "Линейный",
         "start_date": "",
         "note": ""
+    },
+    {
+        "id": 17,
+        "board_number": "2ЭС6-164",
+        "gov_number": "",
+        "model": "2ЭС6 «Синара»",
+        "route": "",
+        "year": "12.04.2012",
+        "depot": "ТЧЭ-3 Курган",
+        "city": "",
+        "status": "Экспуатируется",
+        "factory_number": "",
+        "vin": "11198389/11198397",
+        "purpose": "Линейный",
+        "start_date": "04.2012",
+        "note": ""
     }
 ]

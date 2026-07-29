@@ -150,5 +150,20 @@
         "date_raw": "29.07.2026",
         "date_formatted": "29 Июля 2026",
         "created_at": "2026-07-29T16:51:21.939856"
+    },
+    {
+        "id": 11,
+        "photo_path": "uploads/photo_AQAD2h5rG5gcUUt8_1785339260.jpg",
+        "gallery_id": 2,
+        "transport_ids": [
+            17
+        ],
+        "route": "",
+        "country": "Россия",
+        "region": "Свердловская область",
+        "city": "Перегон Кунавино — Каменск-Уральский, мост через реку Каменка",
+        "date_raw": "29.07.2026",
+        "date_formatted": "29 Июля 2026",
+        "created_at": "2026-07-29T17:36:18.059876"
     }
 ]

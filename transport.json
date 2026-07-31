@@ -229,5 +229,22 @@
         "purpose": "Линейный",
         "start_date": "",
         "note": ""
+    },
+    {
+        "id": 19,
+        "board_number": "483",
+        "gov_number": "",
+        "model": "Tatra T3SU (двухдверная)",
+        "route": "",
+        "year": "1972",
+        "depot": "Южное трамвайное депо",
+        "city": "ЕкатеринбургРоссия",
+        "status": "Эксплуатируется",
+        "factory_number": "160709",
+        "vin": "",
+        "purpose": "Пассажирский",
+        "start_date": "",
+        "note": "Импортировано с transphoto.org",
+        "source_url": "https://transphoto.org/vehicle/30779/#n30255"
     }
 ]

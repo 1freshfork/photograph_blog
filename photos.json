@@ -180,5 +180,20 @@
         "date_raw": "29.07.2026",
         "date_formatted": "29 Июля 2026",
         "created_at": "2026-07-29T21:42:41.207599"
+    },
+    {
+        "id": 13,
+        "photo_path": "uploads/photo_AQADzhxrG7w4aEt8_1785524832.jpg",
+        "gallery_id": 1,
+        "transport_ids": [
+            19
+        ],
+        "route": "20 (отныне закрытый)",
+        "country": "Россия",
+        "region": "Свердловская область",
+        "city": "Екатеринбург, Проспект Ленина",
+        "date_raw": "22.07.2026",
+        "date_formatted": "22 Июля 2026",
+        "created_at": "2026-07-31T21:09:05.112513"
     }
 ]

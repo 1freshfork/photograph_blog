@@ -246,5 +246,21 @@
         "start_date": "",
         "note": "Импортировано с transphoto.org",
         "source_url": "https://transphoto.org/vehicle/30779/#n30255"
+    },
+    {
+        "id": 20,
+        "board_number": "2ТЭ116-1420",
+        "gov_number": "",
+        "model": "2ТЭ116",
+        "route": "",
+        "year": "25.10.1988",
+        "depot": "ТЧЭ-18 Сургут",
+        "city": "Свердловская Железная Дорога",
+        "status": "Экспуатируется",
+        "factory_number": "",
+        "vin": "",
+        "purpose": "Линейное",
+        "start_date": "11.1988",
+        "note": ""
     }
 ]
